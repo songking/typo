@@ -113,6 +113,21 @@ class Admin::ContentController < Admin::BaseController
     render :text => nil
   end
 
+  #Start of hw5 code
+  def merge
+    if current_user.admin?
+      successful_merge = Article.find_by_id(params[:id]).merge(params[:merge_with])
+      if successful_merge
+        flash[:notice] = "Merge Successful"
+      else
+        flash[:error] = "Merge Failed"
+      end
+      redirect_to :action => "edit", :id => params[:id]
+    end
+    
+  end
+
+
   protected
 
   def get_fresh_or_existing_draft_for_article
@@ -240,4 +255,6 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
+
 end
