@@ -417,24 +417,21 @@ class Article < Content
   end
 
   #Start of HW 5 Code
-  def merge_with(id)
-    tar_comm = Comment.find_all_by_article_id(id)
-    tar = Article.find_by_id(id)
-
-    if tar
-      self.body = self.body + " " + tar.body
-      tar_comm.each do |i|
-        i.article_id = self.id
-        i.save!
+  def merge_with(other_article_id)
+    comments_to_merge = Comment.find_all_by_article_id(other_article_id)
+    article_to_merge = Article.find_by_id(other_article_id)
+    if article_to_merge
+      self.body = self.body + " " + article_to_merge.body
+      comments_to_merge.each do |comment|
+        comment.article_id = self.id
+        comment.save!
       end
-        tar.destroy
+        article_to_merge.destroy
         self.save
         true
-
     else
       false
     end
-
   end
 
 
