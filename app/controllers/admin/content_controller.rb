@@ -114,17 +114,15 @@ class Admin::ContentController < Admin::BaseController
   end
 
   #Start of hw5 code
-  def merge
+  def merge_articles
     if current_user.admin?
-      successful_merge = Article.find_by_id(params[:id]).merge(params[:merge_with])
-      if successful_merge
+      if (Article.find_by_id(params[:id]).merge_with(params[:merge_with]))
         flash[:notice] = "Merge Successful"
       else
         flash[:error] = "Merge Failed"
       end
       redirect_to :action => "edit", :id => params[:id]
     end
-    
   end
 
 

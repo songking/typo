@@ -5,9 +5,9 @@
 
 <% end %>
 
-
+<!--Start of HW 5 Code -->
 <% if current_user.admin? %>
-  <%= form_tag(form_action.merge({action: 'merge'}), method: 'post') do %>
+  <%= form_tag(form_action.merge({action: 'merge_articles'}), method: 'post') do %>
     <%= label_tag(:merge_with, 'Article ID ') %>
     <%= text_field_tag(:merge_with) %>
     <%= submit_tag("Merge Articles") %>
